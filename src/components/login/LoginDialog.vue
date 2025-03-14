@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useGlobalStore } from 'stores/globalStore';
+import { sb_login } from 'stores/supabase/sb_login';
+import { sb_toast } from 'stores/supabase/sb_toast';
+import { useSupabaseStore } from 'stores/SupabaseStore';
 
 const activeTab = ref('login');
 
@@ -8,8 +11,10 @@ const name = ref('');
 const email = ref('');
 const password = ref('');
 
-function handleLogin() {
-  useGlobalStore().show_login = false;
+async function handleLogin() {
+  const result = await sb_login(email.value, password.value);
+  sb_toast(result);
+  await useSupabaseStore().loadUser();
 }
 </script>
 
@@ -25,19 +30,12 @@ function handleLogin() {
 
       <q-tab-panels v-model="activeTab" animated>
         <q-tab-panel name="login">
-          <q-card-section>
-            <q-input v-model="email" outlined dense label="Email" type="email" class="q-mb-md" />
-            <q-input
-              v-model="password"
-              outlined
-              dense
-              label="Password"
-              type="password"
-              class="q-mb-md"
-            />
+          <q-card-section class="q-gutter-y-md">
+            <q-input v-model="email" outlined dense label="Email" type="email" />
+            <q-input v-model="password" outlined dense label="Password" type="password" />
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn @click="handleLogin" class="full-width" label="Login" color="primary" />
+            <q-btn @click.prevent="handleLogin" class="full-width" label="Login" color="primary" />
           </q-card-actions>
         </q-tab-panel>
 

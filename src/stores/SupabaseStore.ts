@@ -10,7 +10,7 @@ import type { SB_Tag } from 'stores/supabase/SB_Tag';
 const supabaseUrl = 'https://ldgejbqndhdvsyeqwfme.supabase.co';
 const supabaseKey = import.meta.env.VITE_SUPABASE_API_KEY;
 
-export const useSupabaseStore = defineStore('SpabaseStore', {
+export const useSupabaseStore = defineStore('SupabaseStore', {
   state: () => ({
     loading: false,
     supabase: createClient(supabaseUrl, supabaseKey),
@@ -24,8 +24,8 @@ export const useSupabaseStore = defineStore('SpabaseStore', {
   actions: {
     async loadUser() {
       const user = await this.supabase.auth.getUser();
-      this.user_id = user.data.user?.id ?? 'none';
-      this.user_email = user.data.user?.email ?? 'none';
+      this.user_id = user.data.user?.id ?? '';
+      this.user_email = user.data.user?.email ?? '';
     },
 
     //Create

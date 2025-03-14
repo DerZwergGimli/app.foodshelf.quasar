@@ -1,12 +1,9 @@
 import { useSupabaseStore } from 'stores/SupabaseStore';
 import type { SB_Response } from 'stores/supabase/sb_toast';
 
-export async function sb_login(email: string, password: string) {
+export async function sb_logout() {
   try {
-    const { error } = await useSupabaseStore().supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
+    const { error } = await useSupabaseStore().supabase.auth.signOut();
     if (error) {
       return {
         status: 'ERROR',
@@ -22,6 +19,6 @@ export async function sb_login(email: string, password: string) {
 
   return {
     status: 'OK',
-    message: 'Login successful!',
+    message: 'Logout successful!',
   } as SB_Response;
 }
