@@ -12,6 +12,5 @@ onMounted(async () => {
 </script>
 
 <template>
-  <q-img src="background.webp" class="absolute-center fit" />
   <router-view />
 </template>

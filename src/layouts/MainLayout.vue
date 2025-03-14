@@ -13,9 +13,7 @@
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
         <q-item-label header> Food Tracker </q-item-label>
-
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
-        <LoginButtton />
       </q-list>
     </q-drawer>
 
@@ -33,20 +31,20 @@ import LoginButtton from 'components/login/LoginButtton.vue';
 const linksList: EssentialLinkProps[] = [
   {
     title: 'Home',
-    caption: 'quasar.dev',
-    icon: 'school',
+    caption: 'View and Track',
+    icon: 'ion-home',
     to: '/',
   },
   {
-    title: 'Add',
-    caption: 'quasar.dev',
-    icon: 'school',
+    title: 'Edit',
+    caption: 'Create and edit',
+    icon: 'ion-add',
     to: '/add',
   },
   {
     title: 'About',
-    caption: 'quasar.dev',
-    icon: 'school',
+    caption: 'About this app',
+    icon: 'ion-information',
     to: '/about',
   },
 ];

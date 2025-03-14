@@ -28,6 +28,12 @@ export const useSupabaseStore = defineStore('SupabaseStore', {
     tags: [] as SB_Tag[],
   }),
 
+  getters: {
+    getTagName: (state) => {
+      return (tagID: number) => state.tags.find((tag) => tag.id === tagID)?.name;
+    },
+  },
+
   actions: {
     async loadUser() {
       const user = await this.supabase.auth.getUser();

@@ -13,7 +13,7 @@ watch(
 
 <template>
   <TableItems
-    class="q-my-sm"
+    class="q-mb-xl"
     :group="group"
     v-for="(group, idx) in useSupabaseStore().groups"
     :key="idx"
