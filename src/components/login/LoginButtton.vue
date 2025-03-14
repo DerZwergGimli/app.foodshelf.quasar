@@ -6,16 +6,12 @@ import { computed } from 'vue';
 import { sb_logout } from 'stores/supabase/sb_logout';
 import { sb_toast } from 'stores/supabase/sb_toast';
 
-const isSignedIn = computed(() => {
-  return useSupabaseStore().user_email != '';
-});
-
 const buttonLabel = computed(() => {
-  return isSignedIn.value ? 'Logout' : 'Login';
+  return useSupabaseStore().isSignedIn ? 'Logout' : 'Login';
 });
 
 async function handleButtonClick() {
-  if (isSignedIn.value) {
+  if (useSupabaseStore().isSignedIn) {
     const result = await sb_logout();
     sb_toast(result);
     await useSupabaseStore().loadUser();
