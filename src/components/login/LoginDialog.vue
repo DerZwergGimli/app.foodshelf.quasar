@@ -14,7 +14,7 @@ function handleLogin() {
 </script>
 
 <template>
-  <q-dialog v-model="useGlobalStore().show_login">
+  <q-dialog v-model="useGlobalStore().show_login" full-width>
     <q-card flat bordered>
       <q-tabs v-model="activeTab">
         <q-tab name="login" label="Login" />

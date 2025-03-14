@@ -1,43 +1,21 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="bg-dark">
+    <q-header class="bg-dark">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title>
-          FoodTrack
-        </q-toolbar-title>
+        <q-toolbar-title> FoodTrack </q-toolbar-title>
 
-        <LoginButtton class=""/>
+        <LoginButtton class="" />
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-        >
-          Food Tracker
-        </q-item-label>
+        <q-item-label header> Food Tracker </q-item-label>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-        <LoginButtton/>
-
+        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
+        <LoginButtton />
       </q-list>
     </q-drawer>
 
@@ -57,26 +35,25 @@ const linksList: EssentialLinkProps[] = [
     title: 'Home',
     caption: 'quasar.dev',
     icon: 'school',
-    to: '/'
+    to: '/',
   },
   {
     title: 'Add',
     caption: 'quasar.dev',
     icon: 'school',
-    to: '/add'
+    to: '/add',
   },
   {
     title: 'About',
     caption: 'quasar.dev',
     icon: 'school',
-    to: '/about'
+    to: '/about',
   },
-
 ];
 
 const leftDrawerOpen = ref(false);
 
-function toggleLeftDrawer () {
+function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>
