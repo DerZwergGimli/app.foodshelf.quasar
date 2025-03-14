@@ -1,10 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import CreateItem from 'components/create/CreateItem.vue';
 import CreateGroup from 'components/create/CreateGroup.vue';
 import CreateTag from 'components/create/CreateTag.vue';
+import TableTags from 'components/tables/TableTags.vue';
+import { useSupabaseStore } from 'stores/SupabaseStore';
+import TableGroups from 'components/tables/TableGroups.vue';
 
 const activeTab = ref('item');
+
+watch(
+  () => useSupabaseStore().isSignedIn,
+  async () => {
+    await useSupabaseStore().fetchAll();
+  },
+);
 </script>
 
 <template>
@@ -19,10 +29,16 @@ const activeTab = ref('item');
       <CreateItem />
     </q-tab-panel>
     <q-tab-panel name="group">
-      <CreateGroup />
+      <q-card flat>
+        <CreateGroup />
+        <TableGroups />
+      </q-card>
     </q-tab-panel>
     <q-tab-panel name="tag">
-      <CreateTag />
+      <q-card flat>
+        <CreateTag />
+        <TableTags />
+      </q-card>
     </q-tab-panel>
   </q-tab-panels>
 </template>

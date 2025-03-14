@@ -1,12 +1,19 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
+import type { SB_Response } from 'stores/supabase/sb_toast';
 
 export async function sb_delete(db: SupabaseClient, table: string, id: number) {
-  const { data, error } = await db.from(table).delete().eq('id', id);
+  const { error } = await db.from(table).delete().eq('id', id);
   if (error) {
-    console.error('Error deleting item:', error);
-    return `Error deleting ${table}!`; // Indicate failure
+    console.log(error);
+
+    return {
+      status: 'ERROR',
+      message: error.message,
+    } as SB_Response;
   }
 
-  console.log(`${table} deleted:`, data);
-  return `${table} deleted!`; // Indicate success
+  return {
+    status: 'OK',
+    message: `Deleted!`,
+  } as SB_Response;
 }

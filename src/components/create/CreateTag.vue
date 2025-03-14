@@ -1,32 +1,37 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { QBtn, QCard, QCardSection, QForm, QInput } from 'quasar';
+import { QBtn, QCardSection, QForm, QInput } from 'quasar';
+import { useSupabaseStore } from 'stores/SupabaseStore';
+import type { SB_Tag } from 'stores/supabase/SB_Tag';
 
-const tagName = ref('');
-const tagDescription = ref('');
-
-const createTag = () => {
-  console.log('Tag Name:', tagName.value);
-  console.log('Tag Description:', tagDescription.value);
-};
+const tag = ref<SB_Tag>({
+  name: '',
+  description: '',
+  created_at: new Date(),
+  user_id: useSupabaseStore().user_id,
+});
 </script>
 
 <template>
-  <q-card flat>
-    <q-card-section>
-      <q-form @submit="createTag" class="q-gutter-md">
-        <q-input outlined v-model="tagName" label="Tag Name" required autofocus />
-        <q-input
-          outlined
-          v-model="tagDescription"
-          label="Tag Description"
-          type="textarea"
-          autofocus
-        />
-        <q-btn type="submit" label="Create Tag" color="primary" />
-      </q-form>
-    </q-card-section>
-  </q-card>
+  <q-card-section>
+    <q-form class="q-gutter-y-md">
+      <q-input outlined v-model="tag.name" label="Tag Name" required autofocus />
+      <q-input
+        outlined
+        v-model="tag.description"
+        label="Tag Description"
+        type="textarea"
+        autofocus
+      />
+      <q-btn
+        class="full-width"
+        @click="useSupabaseStore().createTag(tag)"
+        type="submit"
+        label="Create Tag"
+        color="primary"
+      />
+    </q-form>
+  </q-card-section>
 </template>
 
 <style scoped></style>

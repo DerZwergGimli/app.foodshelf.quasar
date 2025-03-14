@@ -15,20 +15,10 @@ const tags = [
   { id: 1, name: 'Tag 1' },
   { id: 2, name: 'Tag 2' },
 ];
-
-const submitForm = () => {
-  console.log({
-    name: name.value,
-    description: description.value,
-    group: group.value,
-    tag: tag.value,
-    amount: amount.value,
-  });
-};
 </script>
 
 <template>
-  <q-form @submit.prevent="submitForm" class="q-gutter-y-md">
+  <q-form class="q-gutter-y-md">
     <q-input v-model="name" label="Name" outlined />
     <q-input v-model="description" label="Description" type="textarea" outlined />
     <q-select
