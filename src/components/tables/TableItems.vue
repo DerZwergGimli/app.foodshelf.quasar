@@ -49,7 +49,7 @@ const columns = [
 
     <template v-slot:item="props">
       <div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
-        <q-card flat bordered>
+        <q-card flat bordered class="bg-grey-10">
           <q-card-section class="row items-center q-gutter-x-sm">
             <q-img width="80px" height="80px" :src="props.row.image"></q-img>
             <div>
