@@ -45,11 +45,15 @@ export const useSupabaseStore = defineStore('SupabaseStore', {
     //Create
     async createItem(item: SB_Item) {
       item.user_id = this.user_id;
-      return await sb_create(this.supabase as never, 'items', item);
+      const result = await sb_create(this.supabase as never, 'items', item);
+      sb_toast(result);
+      if (result.status === 'OK') await this.fetchItems();
     },
     async createGroup(group: SB_Group) {
       group.user_id = this.user_id;
-      return await sb_create(this.supabase as never, 'groups', group);
+      const result = await sb_create(this.supabase as never, 'groups', group);
+      sb_toast(result);
+      if (result.status === 'OK') await this.fetchGroups();
     },
     async createTag(tag: SB_Tag) {
       tag.user_id = this.user_id;
