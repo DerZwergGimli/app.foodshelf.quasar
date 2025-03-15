@@ -8,6 +8,8 @@ import { watchDebounced } from '@vueuse/core';
 
 const item = useSupabaseStore().item_selected;
 
+const props = defineProps(['action']);
+
 const units = [
   { unit: 'unit', label: 'unit' },
   { unit: 'g', label: 'gram' },
@@ -51,7 +53,13 @@ watch(
 );
 
 async function onCreate() {
-  await useSupabaseStore().createItem(item);
+  switch (props.action) {
+    case 'EDIT':
+      await useSupabaseStore().updateItem(item, item.id);
+      break;
+    default:
+      await useSupabaseStore().createItem(item);
+  }
 }
 </script>
 
@@ -134,7 +142,12 @@ async function onCreate() {
 
       <q-date class="full-width" v-model="item.date_expire" first-day-of-week="1" />
     </q-card>
-    <q-btn class="full-width" type="submit" label="Create Item" color="primary" />
+    <q-btn
+      class="full-width"
+      type="submit"
+      :label="props.action == 'EDIT' ? 'Save' : 'Create'"
+      color="primary"
+    />
   </q-form>
 </template>
 

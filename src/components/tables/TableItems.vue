@@ -96,7 +96,7 @@ function formatDate(timestamp: string) {
                 </div>
               </div>
               <div class="absolute-top-right">
-                <q-btn :to="'/edit'" class="" icon="edit" flat />
+                <q-btn :to="'/edit/' + props.row.id" class="" icon="edit" flat />
               </div>
             </q-card-section>
 
