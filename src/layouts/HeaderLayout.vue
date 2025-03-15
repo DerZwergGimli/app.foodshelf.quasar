@@ -12,7 +12,7 @@ const route = useRouter();
       flat
       icon="las la-chevron-left"
       @click="route.push('/')"
-    /><q-toolbar-title class=""> FoodTrack </q-toolbar-title>
+    /><q-toolbar-title @click="route.push('/')" class=""> FoodTrack </q-toolbar-title>
     <LoginButtton class="" />
   </q-toolbar>
 </template>

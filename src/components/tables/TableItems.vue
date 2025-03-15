@@ -124,7 +124,7 @@ function formatDate(timestamp: string) {
                 @click="props.row.amount = (props.row.amount || 0) + 1"
               />
             </q-btn-group>
-            <div class="row full-width q-px-xs" v-else>
+            <div class="row full-width q-pa-xs" v-else>
               <q-btn
                 class="col q-mr-md"
                 color="primary"

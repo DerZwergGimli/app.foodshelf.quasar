@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import CreateItem from 'components/create/CreateItem.vue';
 import CreateGroup from 'components/create/CreateGroup.vue';
 import CreateTag from 'components/create/CreateTag.vue';
 import TableTags from 'components/tables/TableTags.vue';
 import { useSupabaseStore } from 'stores/SupabaseStore';
 import TableGroups from 'components/tables/TableGroups.vue';
+import { SB_ItemDefault } from 'stores/supabase/SB_Item';
 
 const activeTab = ref('item');
 
@@ -15,6 +16,10 @@ watch(
     await useSupabaseStore().fetchAll();
   },
 );
+
+onMounted(() => {
+  useSupabaseStore().item_selected = SB_ItemDefault;
+});
 </script>
 
 <template>

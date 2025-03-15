@@ -84,8 +84,7 @@ export const useSupabaseStore = defineStore('SupabaseStore', {
       sb_toast(result);
     },
     async updateItem(newItem: SB_Item, id?: number) {
-      if (!id) return false;
-      const result = await sb_update(this.supabase as never, 'items', id, newItem);
+      const result = await sb_update(this.supabase as never, 'items', id ?? 0, newItem);
       sb_toast(result);
     },
 

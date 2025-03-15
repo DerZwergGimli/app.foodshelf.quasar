@@ -59,6 +59,7 @@ async function onCreate() {
       break;
     default:
       await useSupabaseStore().createItem(item);
+      break;
   }
 }
 </script>
