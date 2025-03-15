@@ -12,11 +12,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <q-card>
-    <q-card-section>
-      <CreateItem action="EDIT" />
-    </q-card-section>
-  </q-card>
+  <div class="q-ma-md">
+    <q-card flat bordered class="" style="max-width: 600px; margin: auto">
+      <q-card-section>
+        <CreateItem action="EDIT" />
+      </q-card-section>
+    </q-card>
+  </div>
 </template>
 
 <style scoped></style>

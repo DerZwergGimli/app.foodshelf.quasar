@@ -22,7 +22,12 @@ async function handleButtonClick() {
 </script>
 
 <template>
-  <q-btn icon="ion-log-in" :label="buttonLabel" color="primary" @click="handleButtonClick()" />
+  <q-btn
+    :icon="buttonLabel == 'Login' ? 'las la-sign-in-alt' : 'las la-sign-out-alt'"
+    :label="buttonLabel"
+    color="primary"
+    @click="handleButtonClick()"
+  />
   <LoginDialog v-if="useGlobalStore().show_login" />
 </template>
 
