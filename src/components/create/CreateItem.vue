@@ -1,24 +1,12 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useSupabaseStore } from 'stores/SupabaseStore';
-import type { SB_Item } from 'stores/supabase/SB_Item';
 import SelectExpireTime from 'components/extra/SelectExpireTime.vue';
 import { date } from 'quasar';
 import { createClient } from 'pexels';
 import { watchDebounced } from '@vueuse/core';
 
-const item = ref<SB_Item>({
-  name: '',
-  description: '',
-  amount: 0,
-  unit: '',
-  image: '',
-  group_id: null,
-  tag_id: null,
-  date_added: date.formatDate(Date.now(), 'YYYY/MM/DD'),
-  date_expire: date.formatDate(Date.now(), 'YYYY/MM/DD'),
-  user_id: useSupabaseStore().user_id,
-});
+const item = useSupabaseStore().item_selected;
 
 const units = [
   { unit: 'unit', label: 'unit' },
@@ -32,11 +20,11 @@ const slide = ref(1);
 const pexels = createClient(import.meta.env.VITE_PEXELS_API_KEY);
 const photos = ref<string[]>([]);
 watchDebounced(
-  () => item.value.name,
+  () => item.name,
   async () => {
-    if (item.value.name.length >= 3) {
+    if (item.name.length >= 3) {
       try {
-        const query = item.value.name.trim();
+        const query = item.name.trim();
         const data = await pexels.photos.search({
           query,
           per_page: 5,
@@ -59,11 +47,11 @@ watchDebounced(
 
 watch(
   () => slide.value,
-  () => (item.value.image = photos.value[slide.value] ?? ('' as string)),
+  () => (item.image = photos.value[slide.value] ?? ('' as string)),
 );
 
 async function onCreate() {
-  await useSupabaseStore().createItem(item.value);
+  await useSupabaseStore().createItem(item);
 }
 </script>
 
@@ -71,6 +59,7 @@ async function onCreate() {
   <q-form class="q-gutter-y-md" @submit="onCreate">
     <q-input
       lazy-rules
+      hide-bottom-space
       :rules="[(val) => (val && val.length > 0) || 'Name required!']"
       v-model="item.name"
       label="Name"
@@ -83,6 +72,7 @@ async function onCreate() {
     </q-card>
     <q-input v-model="item.description" label="Description" type="textarea" outlined />
     <q-select
+      hide-bottom-space
       lazy-rules
       :rules="[(val) => val || 'Group required!']"
       v-model="item.group_id"
@@ -103,6 +93,7 @@ async function onCreate() {
 
     <div class="row q-gutter-x-sm">
       <q-input
+        hide-bottom-space
         lazy-rules
         :rules="[(val) => (val && val > 0) || 'Amount can not be 0']"
         class="col"
@@ -112,6 +103,7 @@ async function onCreate() {
         outlined
       />
       <q-select
+        hide-bottom-space
         class="col-4"
         lazy-rules
         :rules="[(val) => (val && val.length > 0) || 'Please select a unit']"

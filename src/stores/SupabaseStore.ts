@@ -8,6 +8,7 @@ import { sb_delete } from 'stores/supabase/sb_action_delete';
 import { sb_fetchAll } from 'stores/supabase/sb_action_fetchAll';
 
 import type { SB_Item } from 'stores/supabase/SB_Item';
+import { SB_ItemDefault } from 'stores/supabase/SB_Item';
 import type { SB_Group } from 'stores/supabase/SB_Group';
 import type { SB_Tag } from 'stores/supabase/SB_Tag';
 import type { SB_Object } from 'stores/supabase/SB_Object';
@@ -24,6 +25,7 @@ export const useSupabaseStore = defineStore('SupabaseStore', {
     isSignedIn: false,
     user_id: '',
     user_email: '',
+    item_selected: SB_ItemDefault,
     items: [] as SB_Item[],
     groups: [] as SB_Group[],
     tags: [] as SB_Tag[],

@@ -76,7 +76,7 @@ function formatDate(timestamp: string) {
               <q-avatar>
                 <q-img :src="props.row.image"></q-img>
               </q-avatar>
-              <div>
+              <div class="col">
                 <h5 class="q-ma-none">{{ props.row.name }}</h5>
                 <h6
                   class="q-ma-none text-weight-thin"
@@ -85,13 +85,18 @@ function formatDate(timestamp: string) {
                   {{ props.row.description || 'No description available' }}
                 </h6>
               </div>
-              <div class="col absolute-top-right q-ma-xs">
-                <q-chip :class="props.row.tag ? '' : 'transparent'"
-                  >{{ useSupabaseStore().getTagName(props.row.tag) }}
-                </q-chip>
-                <q-chip outline style="font-size: 11px" class="">
-                  {{ formatDate(props.row.date_expire) }}
-                </q-chip>
+              <div class="col items-end">
+                <div class="col justify-around">
+                  <q-chip v-if="props.row.tag"
+                    >{{ useSupabaseStore().getTagName(props.row.tag) }}
+                  </q-chip>
+                  <q-chip outline style="font-size: 11px" class="">
+                    {{ formatDate(props.row.date_expire) }}
+                  </q-chip>
+                </div>
+              </div>
+              <div class="absolute-top-right">
+                <q-btn :to="'/edit'" class="" icon="edit" flat />
               </div>
             </q-card-section>
 
