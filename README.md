@@ -1,7 +1,7 @@
 # FoodShelf App (app-foodshelf-quasar)
 
 A simple foodshelf tracker
-
+ 
 ## Install the dependencies
 ```bash
 yarn
