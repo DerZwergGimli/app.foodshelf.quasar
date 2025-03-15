@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useSupabaseStore } from 'stores/SupabaseStore';
+import { ref } from 'vue';
 import { date } from 'quasar';
 
 const props = defineProps(['group']);
@@ -26,54 +27,74 @@ const columns = [
     field: 'date_expire',
   },
 ];
+
+const filter = ref();
+
+function formatDate(timestamp: string) {
+  return date.formatDate(timestamp, 'DD-MM-YYYY');
+}
 </script>
 
 <template>
-  <q-table
-    hide-bottom
-    grid
-    flat
-    :title="props.group.name"
-    :rows="useSupabaseStore().items.filter((item) => item.group_id === props.group.id)"
-    :columns="columns"
-    row-key="name"
-    hide-header
+  <q-expansion-item
+    class="text-h6"
+    :label="props.group.name"
+    :caption="props.group.description"
+    default-opened
   >
-    <!--    <template v-slot:top-right>-->
-    <!--      <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">-->
-    <!--        <template v-slot:append>-->
-    <!--          <q-icon name="search" />-->
-    <!--        </template>-->
-    <!--      </q-input>-->
-    <!--    </template>-->
+    <q-table
+      class="q-mb-md"
+      hide-bottom
+      grid
+      :filter="filter"
+      flat
+      :rows="useSupabaseStore().items.filter((item) => item.group_id === props.group.id)"
+      :columns="columns"
+      row-key="name"
+      hide-header
+    >
+      <template v-slot:top>
+        <q-input
+          class="full-width"
+          outlined
+          rounded
+          dense
+          debounce="300"
+          v-model="filter"
+          placeholder="Search"
+        >
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </template>
 
-    <template v-slot:item="props">
-      <div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
-        <q-card flat bordered class="bg-grey-10">
-          <q-card-section class="row items-center q-gutter-x-sm">
-            <q-img width="80px" height="80px" :src="props.row.image"></q-img>
-            <div>
-              <h5 class="q-ma-none">{{ props.row.name }}</h5>
-              <h6 class="q-ma-none text-weight-thin">{{ props.row.description }}</h6>
-            </div>
-            <div
-              class="col absolute-top-right q-ma-xs"
-              v-if="useSupabaseStore().getTagName(props.row.tag)"
-            >
-              <q-chip outline>{{ useSupabaseStore().getTagName(props.row.tag) }} </q-chip>
-            </div>
-          </q-card-section>
-          <q-separator />
-          <q-card-section>
-            <div class="row items-center">
-              <div class="col">Best til</div>
-              <div class="col text-right">
-                {{ date.formatDate(props.row.date_expire, 'YYYY-MM-DD') }}
+      <template v-slot:item="props">
+        <div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
+          <q-card flat bordered class="full-height">
+            <q-card-section class="row items-center q-gutter-x-sm">
+              <q-avatar>
+                <q-img :src="props.row.image"></q-img>
+              </q-avatar>
+              <div>
+                <h5 class="q-ma-none">{{ props.row.name }}</h5>
+                <h6
+                  class="q-ma-none text-weight-thin"
+                  :class="props.row.description ? '' : 'text-transparent'"
+                >
+                  {{ props.row.description || 'No description available' }}
+                </h6>
               </div>
-            </div>
-          </q-card-section>
-          <q-separator />
-          <q-card-section>
+              <div class="col absolute-top-right q-ma-xs">
+                <q-chip :class="props.row.tag ? '' : 'transparent'"
+                  >{{ useSupabaseStore().getTagName(props.row.tag) }}
+                </q-chip>
+                <q-chip outline style="font-size: 11px" class="">
+                  {{ formatDate(props.row.date_expire) }}
+                </q-chip>
+              </div>
+            </q-card-section>
+
             <q-btn-group class="row full-width" v-if="props.row.amount != 0">
               <q-btn
                 color="primary"
@@ -98,7 +119,7 @@ const columns = [
                 @click="props.row.amount = (props.row.amount || 0) + 1"
               />
             </q-btn-group>
-            <div class="row full-width" v-else>
+            <div class="row full-width q-px-xs" v-else>
               <q-btn
                 class="col q-mr-md"
                 color="primary"
@@ -113,11 +134,12 @@ const columns = [
                 @click="useSupabaseStore().deleteItem(props.row.id)"
               />
             </div>
-          </q-card-section>
-        </q-card>
-      </div>
-    </template>
-  </q-table>
+          </q-card>
+        </div>
+      </template>
+    </q-table>
+  </q-expansion-item>
+  <q-separator />
 </template>
 
 <style scoped></style>

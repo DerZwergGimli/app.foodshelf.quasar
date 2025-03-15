@@ -5,12 +5,11 @@ import NavigationBar from 'layouts/NavigationBar.vue';
 const linksList: NavLinkProps[] = [
   {
     title: 'Home',
-
     icon: 'ion-home',
     to: '/',
   },
   {
-    title: 'Edit',
+    title: 'Add',
     icon: 'ion-add',
     to: '/add',
   },

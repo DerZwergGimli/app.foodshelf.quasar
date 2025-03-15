@@ -13,11 +13,12 @@ watch(
 
 <template>
   <TableItems
-    class="q-mb-xl"
+    class="q-mb-md"
     :group="group"
     v-for="(group, idx) in useSupabaseStore().groups"
     :key="idx"
-  ></TableItems>
+  >
+  </TableItems>
 </template>
 
 <style scoped></style>
