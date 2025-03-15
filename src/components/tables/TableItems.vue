@@ -96,14 +96,14 @@ function formatDate(timestamp: string) {
                 </div>
               </div>
               <div class="absolute-top-right">
-                <q-btn :to="'/edit/' + props.row.id" class="" icon="edit" flat />
+                <q-btn :to="'/edit/' + props.row.id" class="" icon="las la-edit" />
               </div>
             </q-card-section>
 
             <q-btn-group class="row full-width" v-if="props.row.amount != 0">
               <q-btn
                 color="primary"
-                icon="remove"
+                icon="las la-minus"
                 @click="props.row.amount = Math.max((props.row.amount || 0) - 1, 0)"
               />
               <q-input
@@ -120,7 +120,7 @@ function formatDate(timestamp: string) {
               />
               <q-btn
                 color="primary"
-                icon="add"
+                icon="las la-plus"
                 @click="props.row.amount = (props.row.amount || 0) + 1"
               />
             </q-btn-group>

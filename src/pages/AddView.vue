@@ -18,29 +18,31 @@ watch(
 </script>
 
 <template>
-  <q-tabs class="bg-dark" v-model="activeTab" align="justify">
-    <q-tab name="item" label="Item"></q-tab>
-    <q-tab name="group" label="Group"></q-tab>
-    <q-tab name="tag" label="Tag"></q-tab>
-  </q-tabs>
+  <div style="max-width: 600px; margin: auto">
+    <q-tabs class="bg-primary" v-model="activeTab" align="justify">
+      <q-tab name="item" label="Item"></q-tab>
+      <q-tab name="group" label="Group"></q-tab>
+      <q-tab name="tag" label="Tag"></q-tab>
+    </q-tabs>
 
-  <q-tab-panels v-model="activeTab" animated>
-    <q-tab-panel name="item">
-      <CreateItem />
-    </q-tab-panel>
-    <q-tab-panel name="group">
-      <q-card flat>
-        <CreateGroup />
-        <TableGroups />
-      </q-card>
-    </q-tab-panel>
-    <q-tab-panel name="tag">
-      <q-card flat>
-        <CreateTag />
-        <TableTags />
-      </q-card>
-    </q-tab-panel>
-  </q-tab-panels>
+    <q-tab-panels v-model="activeTab" animated>
+      <q-tab-panel name="item">
+        <CreateItem />
+      </q-tab-panel>
+      <q-tab-panel name="group">
+        <q-card flat>
+          <CreateGroup />
+          <TableGroups />
+        </q-card>
+      </q-tab-panel>
+      <q-tab-panel name="tag">
+        <q-card flat>
+          <CreateTag />
+          <TableTags />
+        </q-card>
+      </q-tab-panel>
+    </q-tab-panels>
+  </div>
 </template>
 
 <style scoped></style>

@@ -13,7 +13,7 @@ onMounted(() => {
 
 <template>
   <div class="q-ma-md">
-    <q-card flat bordered class="" style="max-width: 600px; margin: auto">
+    <q-card flat class="" style="max-width: 600px; margin: auto">
       <q-card-section>
         <CreateItem action="EDIT" />
       </q-card-section>
