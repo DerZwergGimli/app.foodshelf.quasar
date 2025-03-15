@@ -85,13 +85,14 @@ function formatDate(timestamp: string) {
                   {{ props.row.description || 'No description available' }}
                 </h6>
               </div>
-              <div class="col items-end">
-                <div class="col justify-around">
-                  <q-chip v-if="props.row.tag"
-                    >{{ useSupabaseStore().getTagName(props.row.tag) }}
-                  </q-chip>
+              <div class="row justify-end">
+                <q-space></q-space>
+                <div class="col justify-end">
                   <q-chip outline style="font-size: 11px" class="">
                     {{ formatDate(props.row.date_expire) }}
+                  </q-chip>
+                  <q-chip v-if="props.row.tag"
+                    >{{ useSupabaseStore().getTagName(props.row.tag) }}
                   </q-chip>
                 </div>
               </div>

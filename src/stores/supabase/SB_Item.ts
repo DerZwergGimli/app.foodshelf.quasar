@@ -13,7 +13,6 @@ export interface SB_Item extends SB_Object {
 }
 
 export const SB_ItemDefault: SB_Item = {
-  id: 0,
   user_id: '',
   name: '',
   description: '',
