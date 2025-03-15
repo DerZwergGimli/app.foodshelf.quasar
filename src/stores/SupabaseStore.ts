@@ -12,6 +12,7 @@ import type { SB_Group } from 'stores/supabase/SB_Group';
 import type { SB_Tag } from 'stores/supabase/SB_Tag';
 import type { SB_Object } from 'stores/supabase/SB_Object';
 import { sb_toast } from 'stores/supabase/sb_toast';
+import { sb_login } from 'stores/supabase/sb_login';
 
 const supabaseUrl = 'https://ldgejbqndhdvsyeqwfme.supabase.co';
 const supabaseKey = import.meta.env.VITE_SUPABASE_API_KEY;
@@ -35,11 +36,18 @@ export const useSupabaseStore = defineStore('SupabaseStore', {
   },
 
   actions: {
+    //User
     async loadUser() {
       const user = await this.supabase.auth.getUser();
       this.user_id = user.data.user?.id ?? '';
       this.user_email = user.data.user?.email ?? '';
       this.isSignedIn = this.user_id !== '';
+    },
+
+    async login(email: string, password: string) {
+      const result = await sb_login(email, password);
+      sb_toast(result);
+      await useSupabaseStore().loadUser();
     },
 
     //Create
