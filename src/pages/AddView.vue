@@ -18,7 +18,7 @@ watch(
 </script>
 
 <template>
-  <q-tabs class="bg-dark" v-model="activeTab">
+  <q-tabs class="bg-dark" v-model="activeTab" align="justify">
     <q-tab name="item" label="Item"></q-tab>
     <q-tab name="group" label="Group"></q-tab>
     <q-tab name="tag" label="Tag"></q-tab>

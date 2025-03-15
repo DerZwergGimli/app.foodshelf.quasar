@@ -17,6 +17,8 @@
   "dependencies": {
     "@quasar/extras": "^1.16.4",
     "@supabase/supabase-js": "^2.49.1",
+    "@vueuse/core": "^13.0.0",
+    "pexels": "^1.4.0",
     "pinia": "^3.0.1",
     "quasar": "^2.16.0",
     "vue": "^3.4.18",
