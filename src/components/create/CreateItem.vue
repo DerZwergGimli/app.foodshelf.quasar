@@ -28,11 +28,11 @@ const units = [
   { unit: 'box', label: 'box' },
 ];
 
-const slide = ref(0);
+const slide = ref(1);
 const pexels = createClient(import.meta.env.VITE_PEXELS_API_KEY);
 const photos = ref<string[]>([]);
 watchDebounced(
-  item.value,
+  () => item.value.name,
   async () => {
     if (item.value.name.length >= 3) {
       try {
@@ -45,7 +45,7 @@ watchDebounced(
         if ('photos' in data) {
           // Only access `photos` if it exists in the response
           photos.value = data.photos.map((p) => p.src.original);
-          item.value.image = data.photos[0]?.src?.original || '';
+          slide.value = 0;
         } else {
           console.error('No photos found or invalid response:', data);
         }
@@ -76,10 +76,11 @@ async function onCreate() {
       label="Name"
       outlined
     />
-
-    <q-carousel style="max-height: 200px" swipeable animated v-model="slide" thumbnails infinite>
-      <q-carousel-slide v-for="(photo, idx) in photos" :name="idx" :key="idx" :img-src="photo" />
-    </q-carousel>
+    <q-card bordered flat v-if="photos.length">
+      <q-carousel style="max-height: 200px" swipeable animated v-model="slide" thumbnails infinite>
+        <q-carousel-slide v-for="(photo, idx) in photos" :name="idx" :key="idx" :img-src="photo" />
+      </q-carousel>
+    </q-card>
     <q-input v-model="item.description" label="Description" type="textarea" outlined />
     <q-select
       lazy-rules
