@@ -5,7 +5,7 @@ A simple foodshelf tracker
 ## Install the dependencies
 ```bash
 yarn
-# or
+# or 
 npm install
 ```
 
