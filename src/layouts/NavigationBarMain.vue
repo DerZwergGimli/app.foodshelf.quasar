@@ -9,7 +9,7 @@ const props = defineProps(['links']);
 </script>
 
 <template>
-  <q-tabs active-color="accent" dense flat bordered indicator-color="transparent">
+  <q-tabs align="justify" active-color="accent" dense flat bordered indicator-color="transparent">
     <q-route-tab
       v-for="link in props.links"
       :key="link.title"

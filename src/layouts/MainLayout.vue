@@ -2,6 +2,8 @@
   <q-layout view="lHh Lpr lFf">
     <q-header class="bg-dark">
       <HeaderLayout />
+
+      <q-separator />
     </q-header>
 
     <q-page-container>

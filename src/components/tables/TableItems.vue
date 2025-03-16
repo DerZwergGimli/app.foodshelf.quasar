@@ -56,7 +56,7 @@ function formatDate(timestamp: string) {
       >
         <template v-slot:item="props">
           <div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
-            <q-card bordered class="full-height">
+            <q-card bordered flat class="full-height">
               <q-card-section class="row items-center" horizontal>
                 <q-img class="col-2" height="110px" fit="cover" :src="props.row.image"></q-img>
                 <q-separator vertical />

@@ -157,7 +157,7 @@ async function onCreate() {
       class="full-width"
       type="submit"
       :label="props.action == 'EDIT' ? 'Save' : 'Create'"
-      color="secondary"
+      color="primary"
     />
   </q-form>
 </template>

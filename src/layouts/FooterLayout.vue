@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import type { NavLinkProps } from 'layouts/NavigationBar.vue';
-import NavigationBar from 'layouts/NavigationBar.vue';
+import type { NavLinkProps } from 'layouts/NavigationBarMain.vue';
+import NavigationBarMain from 'layouts/NavigationBarMain.vue';
+import NavigationBarAdd from 'layouts/NavigationBarAdd.vue';
+import { useRoute } from 'vue-router';
 
 const linksList: NavLinkProps[] = [
   {
@@ -22,9 +24,9 @@ const linksList: NavLinkProps[] = [
 </script>
 
 <template>
-  <NavigationBar :links="linksList" />
+  <NavigationBarAdd v-if="useRoute().path.includes('add')" />
   <q-separator />
-  <NavigationBar :links="linksList" />
+  <NavigationBarMain :links="linksList" />
 </template>
 
 <style scoped></style>
