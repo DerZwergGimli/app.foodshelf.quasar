@@ -27,9 +27,10 @@ watch(
         <q-icon name="search" />
       </template>
     </q-input>
+
     <div class="col row" v-for="(group, idx) in useSupabaseStore().groups" :key="idx">
-      <q-separator vertical></q-separator>
-      <TableItems class="col full-width fit" :group="group"></TableItems>
+      <q-separator style="width: 10px" vertical></q-separator>
+      <TableItems class="col full-width" :group="group"> </TableItems>
     </div>
   </q-page>
 </template>

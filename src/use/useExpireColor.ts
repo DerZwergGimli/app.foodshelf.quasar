@@ -1,14 +1,18 @@
+import { convertToUTCTimestamp } from 'src/use/useConvertToUTCTimestamp';
+
 export function useExpireColor(inputDate: string): string {
-  const currentDate = new Date();
-  const parsedDate = new Date(inputDate);
-  const oneYearAgo = new Date();
-  oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(currentDate.getMonth() - 6);
+  const currentDate = Date.now();
+  const parsedDate = convertToUTCTimestamp(inputDate);
 
-  if (parsedDate > currentDate) return 'green';
-  if (parsedDate >= sixMonthsAgo) return 'orange';
-  if (parsedDate < sixMonthsAgo) return 'red';
+  const delta = parsedDate - currentDate;
 
-  return '';
+  console.log(currentDate, parsedDate);
+
+  console.log(delta);
+
+  if (delta > 365 * 24 * 60 * 60 * 1000) return 'green'; // 1 year
+  if (delta > 6 * 30 * 24 * 60 * 60 * 1000) return 'orange'; // 6 months
+  if (delta >= 0)
+    return 'purple'; // 6 months
+  else return 'red';
 }
