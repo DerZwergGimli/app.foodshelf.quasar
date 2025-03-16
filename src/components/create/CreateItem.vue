@@ -37,7 +37,7 @@ watchDebounced(
 
         if ('photos' in response.data) {
           // Only access `photos` if it exists in the response
-          photos.value = response.data.photos.map((p: never) => p.src.original);
+          photos.value = response.data.photos.map((p: never) => p['src']['original']);
           slide.value = 0;
         } else {
           console.error('No photos found or invalid response:', response.data);
