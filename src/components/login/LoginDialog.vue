@@ -5,7 +5,6 @@ import { useSupabaseStore } from 'stores/SupabaseStore';
 
 const activeTab = ref('login');
 
-const name = ref('');
 const email = ref('');
 const password = ref('');
 
@@ -37,7 +36,10 @@ async function onLogin() {
                   v-model="email"
                   outlined
                   lazy-rules
+                  hide-bottom-space
                   dense
+                  id="email"
+                  autocomplete="email"
                   label="Email"
                   type="email"
                 />
@@ -46,12 +48,15 @@ async function onLogin() {
                   v-model="password"
                   outlined
                   lazy-rules
+                  hide-bottom-space
                   dense
+                  autocomplete="password"
+                  id="password"
                   label="Password"
                   type="password"
                 />
               </div>
-              <q-btn class="text-secondary">Forgot Password?</q-btn>
+              <!--              <q-btn class="text-secondary">Forgot Password?</q-btn>-->
             </q-card-section>
 
             <q-card-actions align="right">
@@ -62,13 +67,35 @@ async function onLogin() {
 
         <q-tab-panel name="signup">
           <q-card-section>
-            <div class="text-h6">Sign Up</div>
-            <q-input v-model="name" filled label="Name" type="text" class="q-mb-md" />
-            <q-input v-model="email" filled label="Email" type="email" class="q-mb-md" />
-            <q-input v-model="password" t filled label="Password" type="password" class="q-mb-md" />
+            <q-input
+              dense
+              autocomplete="email"
+              id="email"
+              outlined
+              v-model="email"
+              label="Email"
+              type="email"
+              class="q-mb-md"
+            />
+            <q-input
+              autocomplete="password"
+              dense
+              outlined
+              v-model="password"
+              id="password"
+              label="Password"
+              type="password"
+              class="q-mb-md"
+            />
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="Sign Up" color="primary" />
+            <q-btn
+              type="submit"
+              @click="useSupabaseStore().signUp(email, password)"
+              class="full-width"
+              label="Sign Up"
+              color="primary"
+            />
           </q-card-actions>
         </q-tab-panel>
       </q-tab-panels>
