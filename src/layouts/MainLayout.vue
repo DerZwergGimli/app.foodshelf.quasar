@@ -1,13 +1,15 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header class="">
+    <q-header class="bg-dark">
       <HeaderLayout />
     </q-header>
 
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer>
+
+    <q-footer class="bg-dark">
+      <q-separator />
       <FooterLayout />
     </q-footer>
   </q-layout>

@@ -30,7 +30,7 @@ onMounted(() => {
         inline-label
         active-color="accent"
         indicator-color="transparent"
-        class="bg-primary"
+        class="bg-dark"
         v-model="activeTab"
         align="justify"
       >

@@ -23,6 +23,8 @@ const linksList: NavLinkProps[] = [
 
 <template>
   <NavigationBar :links="linksList" />
+  <q-separator />
+  <NavigationBar :links="linksList" />
 </template>
 
 <style scoped></style>
