@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
-import CreateItem from 'components/create/CreateItem.vue';
 import CreateGroup from 'components/create/CreateGroup.vue';
 import CreateTag from 'components/create/CreateTag.vue';
 import TableTags from 'components/tables/TableTags.vue';
@@ -9,6 +8,7 @@ import TableGroups from 'components/tables/TableGroups.vue';
 import { SB_ItemDefault } from 'stores/supabase/SB_Item';
 import { useQuasar } from 'quasar';
 import { useGlobalStore } from 'stores/globalStore';
+import CreateItem from 'components/create/CreateItem.vue';
 
 watch(
   () => useSupabaseStore().isSignedIn,

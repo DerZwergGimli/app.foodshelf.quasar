@@ -3,8 +3,8 @@ import { ref, watch } from 'vue';
 import { useSupabaseStore } from 'stores/SupabaseStore';
 import SelectExpireTime from 'components/extra/SelectExpireTime.vue';
 import { date } from 'quasar';
-import { createClient } from 'pexels';
 import { watchDebounced } from '@vueuse/core';
+import axios from 'axios';
 
 const item = useSupabaseStore().item_selected;
 
@@ -19,7 +19,7 @@ const units = [
 ];
 
 const slide = ref(1);
-const pexels = createClient(import.meta.env.VITE_PEXELS_API_KEY);
+
 const photos = ref<string[]>([]);
 watchDebounced(
   () => item.name,
@@ -27,17 +27,20 @@ watchDebounced(
     if (item.name.length >= 3) {
       try {
         const query = item.name.trim();
-        const data = await pexels.photos.search({
-          query,
-          per_page: 5,
+        const response = await axios.get(`https://api.pexels.com/v1/search`, {
+          params: { query, per_page: 5 },
+          headers: {
+            Authorization: import.meta.env.VITE_PEXELS_API_KEY,
+          },
         });
+        console.log(response);
 
-        if ('photos' in data) {
+        if ('photos' in response.data) {
           // Only access `photos` if it exists in the response
-          photos.value = data.photos.map((p) => p.src.original);
+          photos.value = response.data.photos.map((p: never) => p.src.original);
           slide.value = 0;
         } else {
-          console.error('No photos found or invalid response:', data);
+          console.error('No photos found or invalid response:', response.data);
         }
       } catch (error) {
         console.error('Error while searching for photos:', error);
