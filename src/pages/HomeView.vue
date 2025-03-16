@@ -15,9 +15,8 @@ watch(
 <template>
   <q-page class="q-gutter-y-md">
     <q-input
-      class="q-ma-lg"
+      class="q-pt-sm q-px-sm"
       outlined
-      rounded
       dense
       debounce="300"
       v-model="useGlobalStore().filter"

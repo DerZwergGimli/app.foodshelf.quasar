@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSupabaseStore } from 'stores/SupabaseStore';
-import { date, useQuasar } from 'quasar';
+import { date } from 'quasar';
 import { useGlobalStore } from 'stores/globalStore';
 import { useExpireColor } from 'src/use/useExpireColor';
 
@@ -56,84 +56,90 @@ function formatDate(timestamp: string) {
       >
         <template v-slot:item="props">
           <div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
-            <q-card :bordered="useQuasar().screen.gt.xs" flat class="full-height">
-              <q-card-section class="row items-center q-gutter-x-sm">
-                <q-avatar>
-                  <q-img :src="props.row.image"></q-img>
-                </q-avatar>
-                <div class="col">
-                  <h5 class="q-ma-none">{{ props.row.name }}</h5>
-                  <h6
-                    class="q-ma-none text-weight-thin"
-                    :class="props.row.description ? '' : 'text-transparent'"
-                  >
-                    {{ props.row.description || 'none' }}
-                  </h6>
-                </div>
-                <div class="col text-center">
-                  <div class="">
-                    <q-chip style="font-size: 11px"
-                      >{{ useSupabaseStore().getTagName(props.row.tag_id) }}
-                    </q-chip>
+            <q-card bordered class="full-height">
+              <q-card-section class="row items-center" horizontal>
+                <q-img class="col-2" height="110px" fit="cover" :src="props.row.image"></q-img>
+                <q-separator vertical />
+                <div class="col q-mx-xs">
+                  <div class="row full-width">
+                    <div class="col">
+                      <h5 class="q-ma-none">{{ props.row.name }}</h5>
+                      <h6
+                        class="q-ma-none text-weight-thin"
+                        :class="props.row.description ? '' : 'text-transparent'"
+                      >
+                        {{ props.row.description || 'none' }}
+                      </h6>
+                    </div>
+                    <div class="col text-right">
+                      <div class="col">
+                        <q-chip
+                          outline
+                          :color="useExpireColor(props.row.date_expire)"
+                          style="font-size: 11px"
+                          class=""
+                        >
+                          {{ formatDate(props.row.date_expire) }}
+                        </q-chip>
+                      </div>
+                      <div class="">
+                        <q-chip style="font-size: 11px"
+                          >{{ useSupabaseStore().getTagName(props.row.tag_id) }}
+                        </q-chip>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col">
-                    <q-chip
-                      outline
-                      :color="useExpireColor(props.row.date_expire)"
-                      style="font-size: 11px"
-                      class=""
-                    >
-                      {{ formatDate(props.row.date_expire) }}
-                    </q-chip>
+
+                  <div>
+                    <q-btn-group class="row full-width" v-if="props.row.amount != 0">
+                      <q-btn
+                        dense
+                        class="q-px-md"
+                        color="primary"
+                        icon="las la-minus"
+                        @click="props.row.amount = Math.max((props.row.amount || 0) - 1, 0)"
+                      />
+                      <q-input
+                        standout
+                        dense
+                        square
+                        input-class="text-right"
+                        :suffix="props.row.unit"
+                        v-model="props.row.amount"
+                        type="number"
+                        min="0"
+                        class="col"
+                        :value="props.row.amount || 0"
+                      />
+                      <q-btn
+                        dense
+                        class="q-px-md"
+                        color="primary"
+                        icon="las la-plus"
+                        @click="props.row.amount = (props.row.amount || 0) + 1"
+                      />
+                    </q-btn-group>
+                    <div class="row full-width q-pa-xs" v-else>
+                      <q-btn
+                        class="col q-mr-md"
+                        color="primary"
+                        label="cancel"
+                        @click="props.row.amount = 1"
+                      />
+
+                      <q-btn
+                        class="col"
+                        color="red"
+                        label="delete"
+                        @click="useSupabaseStore().deleteItem(props.row.id)"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="absolute-top-right">
-                  <q-btn :to="'/edit/' + props.row.id" class="" icon="las la-edit" />
                 </div>
               </q-card-section>
 
-              <q-btn-group class="row full-width" v-if="props.row.amount != 0">
-                <q-btn
-                  dense
-                  class="q-px-md"
-                  color="primary"
-                  icon="las la-minus"
-                  @click="props.row.amount = Math.max((props.row.amount || 0) - 1, 0)"
-                />
-                <q-input
-                  standout
-                  dense
-                  square
-                  input-class="text-right"
-                  :suffix="props.row.unit"
-                  v-model="props.row.amount"
-                  type="number"
-                  min="0"
-                  class="col"
-                  :value="props.row.amount || 0"
-                />
-                <q-btn
-                  dense
-                  class="q-px-md"
-                  color="primary"
-                  icon="las la-plus"
-                  @click="props.row.amount = (props.row.amount || 0) + 1"
-                />
-              </q-btn-group>
-              <div class="row full-width q-pa-xs" v-else>
-                <q-btn
-                  class="col q-mr-md"
-                  color="primary"
-                  label="cancel"
-                  @click="props.row.amount = 1"
-                />
-
-                <q-btn
-                  class="col"
-                  color="red"
-                  label="delete"
-                  @click="useSupabaseStore().deleteItem(props.row.id)"
-                />
+              <div class="absolute-top-left" :style="{ top: '-5px', left: '-15px' }">
+                <q-btn flat :to="'/edit/' + props.row.id" class="" icon="las la-edit" />
               </div>
             </q-card>
           </div>

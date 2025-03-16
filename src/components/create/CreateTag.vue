@@ -15,12 +15,13 @@ const tag = ref<SB_Tag>({
 <template>
   <q-card-section>
     <q-form class="q-gutter-y-md">
-      <q-input outlined v-model="tag.name" label="Tag Name" required autofocus />
+      <q-input dense outlined v-model="tag.name" label="Tag Name" required autofocus />
       <q-input
+        dense
         outlined
         v-model="tag.description"
         label="Tag Description"
-        type="textarea"
+        type="text"
         autofocus
       />
       <q-btn
