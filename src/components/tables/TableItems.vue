@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useSupabaseStore } from 'stores/SupabaseStore';
-import { ref } from 'vue';
-import { date } from 'quasar';
+import { date, useQuasar } from 'quasar';
+import { useGlobalStore } from 'stores/globalStore';
+import { useExpireColor } from 'src/use/useExpireColor';
 
-const props = defineProps(['group']);
+const props = defineProps(['group', 'filter']);
 const columns = [
   {
     name: 'image',
@@ -28,8 +29,6 @@ const columns = [
   },
 ];
 
-const filter = ref();
-
 function formatDate(timestamp: string) {
   return date.formatDate(timestamp, 'DD-MM-YYYY');
 }
@@ -37,41 +36,26 @@ function formatDate(timestamp: string) {
 
 <template>
   <q-expansion-item
-    class="text-h6"
+    class="text-h6 full-width"
     :label="props.group.name"
     :caption="props.group.description"
     default-opened
+    expand-icon="las la-angle-down"
+    expanded-icon="las la-angle-up"
   >
     <q-table
-      class="q-mb-md"
       hide-bottom
       grid
-      :filter="filter"
+      :filter="useGlobalStore().filter"
       flat
       :rows="useSupabaseStore().items.filter((item) => item.group_id === props.group.id)"
       :columns="columns"
       row-key="name"
       hide-header
     >
-      <template v-slot:top>
-        <q-input
-          class="full-width"
-          outlined
-          rounded
-          dense
-          debounce="300"
-          v-model="filter"
-          placeholder="Search"
-        >
-          <template v-slot:append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
-      </template>
-
       <template v-slot:item="props">
         <div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
-          <q-card flat bordered class="full-height">
+          <q-card :bordered="useQuasar().screen.gt.xs" flat class="full-height">
             <q-card-section class="row items-center q-gutter-x-sm">
               <q-avatar>
                 <q-img :src="props.row.image"></q-img>
@@ -85,14 +69,20 @@ function formatDate(timestamp: string) {
                   {{ props.row.description || 'No description available' }}
                 </h6>
               </div>
-              <div class="row justify-end">
-                <q-space></q-space>
-                <div class="col justify-end">
-                  <q-chip outline style="font-size: 11px" class="">
-                    {{ formatDate(props.row.date_expire) }}
+              <div class="col text-center">
+                <div class="">
+                  <q-chip style="font-size: 11px"
+                    >{{ useSupabaseStore().getTagName(props.row.tag_id) }}
                   </q-chip>
-                  <q-chip v-if="props.row.tag"
-                    >{{ useSupabaseStore().getTagName(props.row.tag) }}
+                </div>
+                <div class="col">
+                  <q-chip
+                    outline
+                    :color="useExpireColor(props.row.date_expire)"
+                    style="font-size: 11px"
+                    class=""
+                  >
+                    {{ formatDate(props.row.date_expire) }}
                   </q-chip>
                 </div>
               </div>
@@ -103,6 +93,8 @@ function formatDate(timestamp: string) {
 
             <q-btn-group class="row full-width" v-if="props.row.amount != 0">
               <q-btn
+                dense
+                class="q-px-md"
                 color="primary"
                 icon="las la-minus"
                 @click="props.row.amount = Math.max((props.row.amount || 0) - 1, 0)"
@@ -120,6 +112,8 @@ function formatDate(timestamp: string) {
                 :value="props.row.amount || 0"
               />
               <q-btn
+                dense
+                class="q-px-md"
                 color="primary"
                 icon="las la-plus"
                 @click="props.row.amount = (props.row.amount || 0) + 1"

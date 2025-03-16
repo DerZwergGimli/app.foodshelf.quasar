@@ -107,7 +107,7 @@ export default defineConfig((ctx) => {
     framework: {
       config: {
         notify: {
-          position: 'bottom-right',
+          position: 'bottom',
         },
       },
 

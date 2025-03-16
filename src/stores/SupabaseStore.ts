@@ -55,6 +55,7 @@ export const useSupabaseStore = defineStore('SupabaseStore', {
     //Create
     async createItem(item: SB_Item) {
       item.user_id = this.user_id;
+      delete item.id;
       const result = await sb_create(this.supabase as never, 'items', item);
       sb_toast(result);
       if (result.status === 'OK') await this.fetchItems();
@@ -67,6 +68,7 @@ export const useSupabaseStore = defineStore('SupabaseStore', {
     },
     async createTag(tag: SB_Tag) {
       tag.user_id = this.user_id;
+
       const result = await sb_create(this.supabase as never, 'tags', tag);
       sb_toast(result);
       if (result.status === 'OK') await this.fetchTags();

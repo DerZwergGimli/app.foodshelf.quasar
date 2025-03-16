@@ -73,35 +73,44 @@ async function onCreate() {
       v-model="item.name"
       label="Name"
       outlined
+      dense
     />
     <q-card bordered flat v-if="photos.length">
       <q-carousel style="max-height: 200px" swipeable animated v-model="slide" thumbnails infinite>
         <q-carousel-slide v-for="(photo, idx) in photos" :name="idx" :key="idx" :img-src="photo" />
       </q-carousel>
     </q-card>
-    <q-input v-model="item.description" label="Description" type="textarea" outlined />
-    <q-select
-      hide-bottom-space
-      lazy-rules
-      :rules="[(val) => val || 'Group required!']"
-      v-model="item.group_id"
-      :options="useSupabaseStore().groups.map((g) => ({ label: g.name, value: g.id }))"
-      label="Group"
-      outlined
-      emit-value
-      map-options
-    />
-    <q-select
-      v-model="item.tag_id"
-      :options="useSupabaseStore().tags.map((g) => ({ label: g.name, value: g.id }))"
-      label="Tag"
-      outlined
-      emit-value
-      map-options
-    />
+    <q-input dense v-model="item.description" label="Description" type="text" outlined />
+    <q-separator />
+    <div class="row q-gutter-x-sm">
+      <q-select
+        class="col"
+        dense
+        hide-bottom-space
+        lazy-rules
+        :rules="[(val) => val || 'Group required!']"
+        v-model="item.group_id"
+        :options="useSupabaseStore().groups.map((g) => ({ label: g.name, value: g.id }))"
+        label="Group"
+        outlined
+        emit-value
+        map-options
+      />
+      <q-select
+        class="col"
+        dense
+        v-model="item.tag_id"
+        :options="useSupabaseStore().tags.map((g) => ({ label: g.name, value: g.id }))"
+        label="Tag"
+        outlined
+        emit-value
+        map-options
+      />
+    </div>
 
     <div class="row q-gutter-x-sm">
       <q-input
+        dense
         hide-bottom-space
         lazy-rules
         :rules="[(val) => (val && val > 0) || 'Amount can not be 0']"
@@ -112,6 +121,7 @@ async function onCreate() {
         outlined
       />
       <q-select
+        dense
         hide-bottom-space
         class="col-4"
         lazy-rules

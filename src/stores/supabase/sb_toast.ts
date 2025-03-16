@@ -10,6 +10,7 @@ export function sb_toast(result: SB_Response) {
   switch (result.status) {
     case 'OK':
       Notify.create({
+        icon: 'las la-check-circle',
         type: 'positive',
         message: result.message,
       });
@@ -17,6 +18,7 @@ export function sb_toast(result: SB_Response) {
       break;
     case 'ERROR':
       Notify.create({
+        icon: 'las la-exclamation-circle',
         type: 'negative',
         message: result.message,
       });
