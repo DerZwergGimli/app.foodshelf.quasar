@@ -33,10 +33,10 @@ export default defineConfig((ctx) => {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#build
     build: {
-      publicPath: '/app.foodshelf.quasar/',
+      //publicPath: '/app.foodshelf.quasar/',
       target: {
-        browser: ['es2022', 'firefox115', 'chrome115', 'safari14'],
-        node: 'node20',
+        browser: ['chrome87'],
+        node: 'es2020',
       },
 
       typescript: {
@@ -58,12 +58,8 @@ export default defineConfig((ctx) => {
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
-      // polyfillModulePreload: true,
+      //polyfillModulePreload: true,
       // distDir
-
-      //extendViteConf(viteConf) {
-      //},
-      // viteVuePluginOptions: {},
 
       vitePlugins: [
         [

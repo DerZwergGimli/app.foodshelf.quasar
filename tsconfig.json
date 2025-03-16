@@ -1,4 +1,7 @@
 {
   "extends": "./.quasar/tsconfig.json",
+  "compilerOptions": {
+    "resolveJsonModule": true,
 
+  }
 }
