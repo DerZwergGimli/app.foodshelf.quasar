@@ -3,6 +3,9 @@ import type { NavLinkProps } from 'layouts/NavigationBarMain.vue';
 import NavigationBarMain from 'layouts/NavigationBarMain.vue';
 import NavigationBarAdd from 'layouts/NavigationBarAdd.vue';
 import { useRoute } from 'vue-router';
+import { computed } from 'vue';
+
+const route = useRoute();
 
 const linksList: NavLinkProps[] = [
   {
@@ -21,10 +24,12 @@ const linksList: NavLinkProps[] = [
     to: '/about',
   },
 ];
+
+const showBarAdd = computed(() => route.path.includes('add'));
 </script>
 
 <template>
-  <NavigationBarAdd v-if="useRoute().path.includes('add')" />
+  <NavigationBarAdd v-if="showBarAdd" />
   <q-separator />
   <NavigationBarMain :links="linksList" />
 </template>
