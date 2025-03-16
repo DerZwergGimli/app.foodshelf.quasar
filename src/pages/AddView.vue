@@ -27,17 +27,23 @@ onMounted(() => {
     <q-card flat style="max-width: 600px; margin: auto">
       <q-tab-panels v-model="useGlobalStore().addActiveTab" animated>
         <q-tab-panel name="item">
-          <CreateItem />
+          <q-card flat>
+            <CreateItem />
+          </q-card>
         </q-tab-panel>
-        <q-tab-panel name="group">
+        <q-tab-panel name="group" class="q-gutter-y-md">
           <q-card flat>
             <CreateGroup />
+          </q-card>
+          <q-card flat>
             <TableGroups />
           </q-card>
         </q-tab-panel>
-        <q-tab-panel name="tag">
+        <q-tab-panel name="tag" class="q-gutter-y-md">
           <q-card flat>
             <CreateTag />
+          </q-card>
+          <q-card flat>
             <TableTags />
           </q-card>
         </q-tab-panel>

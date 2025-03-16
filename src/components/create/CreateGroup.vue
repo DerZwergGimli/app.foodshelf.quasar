@@ -18,19 +18,21 @@ async function createGroup() {
 </script>
 
 <template>
-  <q-form @submit.prevent="createGroup" class="q-gutter-y-md">
-    <q-input dense v-model="groupName" label="Group Name" outlined maxlength="100" autofocus />
-    <q-input
-      dense
-      v-model="groupDescription"
-      label="Group Description"
-      outlined
-      type="text"
-      maxlength="500"
-      autofocus
-    />
-    <q-btn class="full-width" label="Create Group" type="submit" color="primary" />
-  </q-form>
+  <q-card-section>
+    <q-form @submit.prevent="createGroup" class="q-gutter-y-md">
+      <q-input dense v-model="groupName" label="Group Name" outlined maxlength="100" autofocus />
+      <q-input
+        dense
+        v-model="groupDescription"
+        label="Group Description"
+        outlined
+        type="text"
+        maxlength="500"
+        autofocus
+      />
+      <q-btn class="full-width" label="Create Group" type="submit" color="primary" />
+    </q-form>
+  </q-card-section>
 </template>
 
 <style scoped></style>
